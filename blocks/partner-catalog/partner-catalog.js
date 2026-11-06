@@ -42,7 +42,9 @@ const TEXT = {
     az: 'Universidade A–Z',
     byCountry: 'País A–Z',
     founded: 'Fundação (mais antiga)',
-    meta: (shown, total) => `${total} universidades encontradas · Mostrando ${shown} de ${total}`,
+    meta: (shown, total) => (total === 1
+      ? `1 universidade encontrada · Mostrando ${shown} de ${total}`
+      : `${total} universidades encontradas · Mostrando ${shown} de ${total}`),
     emptyTitle: 'Nenhuma universidade encontrada',
     emptyText: 'Ajuste a busca ou remova alguns filtros.',
     more: 'Mostrar mais',
@@ -89,7 +91,9 @@ const TEXT = {
     az: 'University A–Z',
     byCountry: 'Country A–Z',
     founded: 'Founded (oldest)',
-    meta: (shown, total) => `${total} universities found · Showing ${shown} of ${total}`,
+    meta: (shown, total) => (total === 1
+      ? `1 university found · Showing ${shown} of ${total}`
+      : `${total} universities found · Showing ${shown} of ${total}`),
     emptyTitle: 'No university found',
     emptyText: 'Adjust the search or remove some filters.',
     more: 'Show more',

@@ -21,7 +21,7 @@ for para outra pasta, o caminho precisa ser informado na tabela do bloco.
 
 ## A planilha
 
-Duas abas, ambas obrigatórias.
+Três abas, todas obrigatórias.
 
 ### Aba `parceiros` — uma linha por instituição
 
@@ -66,6 +66,18 @@ A coluna `categories` é o que o site antigo deduzia por casamento de texto sobr
 Um termo que não estiver aqui aparece pela própria chave. É o lugar de corrigir uma tradução
 ou renomear um curso, sem tocar em código.
 
+### Aba `cidades` — uma linha por cidade com parceira
+
+| Coluna | Conteúdo |
+| --- | --- |
+| `pais` | país, na mesma chave em inglês usada na aba `parceiros` |
+| `cidade` | nome da cidade, igual ao que está em `city` |
+| `lat` `lon` | coordenadas decimais |
+
+É o que posiciona os marcadores quando o mapa entra num país. Uma cidade sem linha aqui
+não ganha marcador — a instituição continua aparecendo no catálogo, só não no mapa. Ao
+cadastrar uma parceira numa cidade nova, acrescente a linha correspondente.
+
 ## Imagens
 
 Nomeadas pelo `slug` da linha, em `.webp`. A foto do campus é obrigatória; o logo é
@@ -76,7 +88,8 @@ pipeline de otimização do EDS (`createOptimizedPicture` pede as variações de
 
 ## Depois de publicar
 
-1. `/parcerias.json` responde e traz as duas abas (`:names` com `parceiros` e `taxonomia`).
+1. `/parcerias.json` responde e traz as três abas (`:names` com `parceiros`, `taxonomia`
+   e `cidades`).
 2. Uma imagem abre direto pela URL, por exemplo `/assets/parcerias/aarhus-university.webp`.
 3. Na página, os indicadores batem com a base: hoje são 138 instituições, 37 países,
    7 regiões e 44 com AACSB + AMBA + EQUIS.
