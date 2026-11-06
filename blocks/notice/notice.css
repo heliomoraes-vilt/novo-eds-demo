@@ -1,0 +1,35 @@
+.notice {
+  margin: 24px 0;
+  border-left: 4px solid var(--border-color);
+  background-color: var(--surface-2-color);
+  padding: 12px 16px;
+  color: var(--muted-color);
+  font-size: var(--body-font-size-xs);
+}
+
+.notice .notice-body > * {
+  margin: 0;
+}
+
+.notice .notice-body > * + * {
+  margin-top: 8px;
+}
+
+.notice strong {
+  color: var(--text-color);
+}
+
+/* variants */
+.notice.warning {
+  border-left-color: var(--accent-color);
+}
+
+.notice.inverse {
+  border-left-color: var(--accent-color);
+  background-color: transparent;
+  color: #d4d4d4;
+}
+
+.notice.inverse strong {
+  color: #fff;
+}

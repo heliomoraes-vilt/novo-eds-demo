@@ -11,33 +11,89 @@
  */
 
 :root {
+  /* text scale, driven by the A-/A+ control in scripts/prefs.js */
+  --fs: 1;
+
   /* colors */
-  --background-color: white;
-  --light-color: #f8f8f8;
-  --dark-color: #505050;
-  --text-color: #131313;
-  --link-color: #3b63fb;
-  --link-hover-color: #1d3ecf;
+  --background-color: #fff;
+  --surface-color: #fff;
+  --surface-2-color: #fafafa;
+  --light-color: #f5f5f5;
+  --dark-color: #525252;
+  --text-color: #0a0a0a;
+  --muted-color: #525252;
+  --border-color: #d4d4d4;
+  --border-2-color: #e5e5e5;
+  --accent-color: #e50505;
+  --accent-hover-color: #cc0303;
+  --accent-contrast-color: #fff;
+  --link-color: #a80606;
+  --link-hover-color: #e50505;
+  --focus-color: rgb(229 5 5 / 27%);
 
   /* fonts */
   --body-font-family: roboto, roboto-fallback, sans-serif;
   --heading-font-family: roboto-condensed, roboto-condensed-fallback, sans-serif;
 
   /* body sizes */
-  --body-font-size-m: 22px;
-  --body-font-size-s: 19px;
-  --body-font-size-xs: 17px;
+  --body-font-size-m: 1.375rem;
+  --body-font-size-s: 1.1875rem;
+  --body-font-size-xs: 1.0625rem;
 
   /* heading sizes */
-  --heading-font-size-xxl: 55px;
-  --heading-font-size-xl: 44px;
-  --heading-font-size-l: 34px;
-  --heading-font-size-m: 27px;
-  --heading-font-size-s: 24px;
-  --heading-font-size-xs: 22px;
+  --heading-font-size-xxl: 3.4375rem;
+  --heading-font-size-xl: 2.75rem;
+  --heading-font-size-l: 2.125rem;
+  --heading-font-size-m: 1.6875rem;
+  --heading-font-size-s: 1.5rem;
+  --heading-font-size-xs: 1.375rem;
 
-  /* nav height */
-  --nav-height: 64px;
+  /* nav height: rem-based so the nav grows with the reader's text scale */
+  --nav-height: 4rem;
+}
+
+/* dark theme: system preference, unless the reader chose light */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --background-color: #0a0a0a;
+    --surface-color: #171717;
+    --surface-2-color: #262626;
+    --light-color: #171717;
+    --dark-color: #d4d4d4;
+    --text-color: #fff;
+    --muted-color: #a1a1a1;
+    --border-color: #525252;
+    --border-2-color: #404040;
+    --accent-color: #ff4a4a;
+    --accent-hover-color: #ff7070;
+    --accent-contrast-color: #1a0505;
+    --link-color: #ff7070;
+    --link-hover-color: #ff4a4a;
+    --focus-color: rgb(229 5 5 / 45%);
+
+    color-scheme: dark;
+  }
+}
+
+/* dark theme: explicit choice, so the toggle wins over the system setting */
+:root[data-theme="dark"] {
+  --background-color: #0a0a0a;
+  --surface-color: #171717;
+  --surface-2-color: #262626;
+  --light-color: #171717;
+  --dark-color: #d4d4d4;
+  --text-color: #fff;
+  --muted-color: #a1a1a1;
+  --border-color: #525252;
+  --border-2-color: #404040;
+  --accent-color: #ff4a4a;
+  --accent-hover-color: #ff7070;
+  --accent-contrast-color: #1a0505;
+  --link-color: #ff7070;
+  --link-hover-color: #ff4a4a;
+  --focus-color: rgb(229 5 5 / 45%);
+
+  color-scheme: dark;
 }
 
 /* fallback fonts */
@@ -56,18 +112,23 @@
 @media (width >= 900px) {
   :root {
     /* body sizes */
-    --body-font-size-m: 18px;
-    --body-font-size-s: 16px;
-    --body-font-size-xs: 14px;
+    --body-font-size-m: 1.125rem;
+    --body-font-size-s: 1rem;
+    --body-font-size-xs: 0.875rem;
 
     /* heading sizes */
-    --heading-font-size-xxl: 45px;
-    --heading-font-size-xl: 36px;
-    --heading-font-size-l: 28px;
-    --heading-font-size-m: 22px;
-    --heading-font-size-s: 20px;
-    --heading-font-size-xs: 18px;
+    --heading-font-size-xxl: 2.8125rem;
+    --heading-font-size-xl: 2.25rem;
+    --heading-font-size-l: 1.75rem;
+    --heading-font-size-m: 1.375rem;
+    --heading-font-size-s: 1.25rem;
+    --heading-font-size-xs: 1.125rem;
   }
+}
+
+/* every type size is rem-based so the A-/A+ control can scale the whole page */
+html {
+  font-size: calc(16px * var(--fs));
 }
 
 body {
@@ -322,4 +383,43 @@ main .section.highlight {
   background-color: var(--light-color);
   margin: 0;
   padding: 40px 0;
+}
+
+main .section.dark {
+  background-color: #0a0a0a;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+/* skip link, inserted by scripts.js */
+.skip-link {
+  position: fixed;
+  z-index: 999;
+  left: 12px;
+  top: -80px;
+  background-color: var(--accent-color);
+  padding: 10px 14px;
+  color: var(--accent-contrast-color);
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus-color);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

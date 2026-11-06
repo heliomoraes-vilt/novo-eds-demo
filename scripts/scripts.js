@@ -156,14 +156,49 @@ export function decorateMain(main) {
 }
 
 /**
+ * Applies the stored reader preferences before first paint, so the page never flashes
+ * the wrong theme or text size. The controls themselves live in scripts/prefs.js;
+ * the storage keys and the text scale steps below must stay in sync with it.
+ */
+function applyStoredPreferences() {
+  const [, segment] = window.location.pathname.split('/');
+  document.documentElement.lang = ['pt', 'en'].includes(segment) ? segment : 'pt';
+  try {
+    const theme = window.localStorage.getItem('insper-global-theme');
+    if (theme === 'dark' || theme === 'light') document.documentElement.dataset.theme = theme;
+    const steps = [0.875, 1, 1.125, 1.25, 1.375];
+    const step = Number.parseInt(window.localStorage.getItem('insper-global-font'), 10);
+    if (steps[step]) document.documentElement.style.setProperty('--fs', steps[step]);
+  } catch (e) {
+    // no stored preferences available; the defaults in styles.css apply
+  }
+}
+
+/**
+ * Adds the skip link that takes keyboard users straight to the content.
+ * @param {Element} main The main element
+ */
+function addSkipLink(main) {
+  const labels = { pt: 'Ir para o conteúdo', en: 'Skip to content' };
+  if (!main.id) main.id = 'main';
+  main.setAttribute('tabindex', '-1');
+  const link = document.createElement('a');
+  link.className = 'skip-link';
+  link.href = `#${main.id}`;
+  link.textContent = labels[document.documentElement.lang] || labels.pt;
+  document.body.prepend(link);
+}
+
+/**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
-  document.documentElement.lang = 'en';
+  applyStoredPreferences();
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
+    addSkipLink(main);
     decorateMain(main);
     document.body.classList.add('appear');
     await loadSection(main.querySelector('.section'), waitForFirstImage);
