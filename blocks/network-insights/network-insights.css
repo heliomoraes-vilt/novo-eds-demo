@@ -1,0 +1,118 @@
+.network-insights {
+  font-size: var(--body-font-size-xs);
+}
+
+.network-insights .insights-status {
+  margin: 0;
+  border: 1px solid var(--border-color);
+  border-left-width: 4px;
+  border-left-color: var(--accent-color);
+  padding: 16px;
+  color: var(--muted-color);
+}
+
+.network-insights .insights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 1px;
+  border: 1px solid var(--border-2-color);
+  background-color: var(--border-2-color);
+}
+
+.network-insights .insights-panel {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  padding: 16px 18px;
+  background-color: var(--surface-color);
+}
+
+.network-insights .insights-title {
+  margin: 0;
+  font-size: var(--heading-font-size-xs);
+}
+
+.network-insights .insights-hint {
+  margin: 4px 0 0;
+  color: var(--muted-color);
+  font-size: 0.9em;
+}
+
+.network-insights .insights-bars {
+  display: grid;
+  gap: 2px;
+}
+
+.network-insights .insights-empty {
+  margin: 0;
+  color: var(--muted-color);
+}
+
+.network-insights .insights-bar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(60px, 90px) auto;
+  align-items: center;
+  gap: 10px;
+  border: 0;
+  padding: 5px 6px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.network-insights .insights-bar:hover {
+  background-color: var(--surface-2-color);
+}
+
+/* o catálogo legado cortava nomes longos ("Engenharia da Computaç…"); aqui eles quebram */
+.network-insights .insights-bar-label {
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+.network-insights .insights-bar-track {
+  height: 8px;
+  background-color: var(--surface-2-color);
+}
+
+.network-insights .insights-bar-fill {
+  display: block;
+  height: 100%;
+  background-color: var(--border-color);
+  transition: background-color 120ms ease-out;
+}
+
+.network-insights .insights-bar:hover .insights-bar-fill {
+  background-color: var(--accent-color);
+}
+
+.network-insights .insights-bar-value {
+  color: var(--muted-color);
+  font-variant-numeric: tabular-nums;
+}
+
+.network-insights .insights-bar[aria-pressed="true"] {
+  background-color: var(--surface-2-color);
+}
+
+.network-insights .insights-bar[aria-pressed="true"] .insights-bar-label {
+  font-weight: 700;
+}
+
+.network-insights .insights-bar[aria-pressed="true"] .insights-bar-fill {
+  background-color: var(--accent-color);
+}
+
+.network-insights .insights-bar[aria-pressed="true"] .insights-bar-value {
+  color: var(--accent-color);
+  font-weight: 700;
+}
+
+/* o rótulo tem espaço de sobra em telas largas: deixa o nome inteiro aparecer */
+@media (width >= 900px) {
+  .network-insights .insights-bar {
+    grid-template-columns: minmax(0, 1.1fr) minmax(70px, 1fr) auto;
+  }
+}
