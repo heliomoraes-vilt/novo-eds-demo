@@ -25,6 +25,7 @@ const state = {
 const listeners = new Set();
 let partners = [];
 let labels = {};
+let cities = {};
 let loading = null;
 
 const norm = (s) => String(s ?? '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
@@ -48,6 +49,14 @@ export function label(kind, key) {
 
 /** Primeira cidade de um registro que lista mais de uma. */
 export const primaryCity = (p) => String(p.city || '').split(/\s+e\s+|\/|,/i)[0].trim();
+
+/**
+ * Coordenadas de uma cidade, da aba `cidades` da planilha.
+ * @param {string} country país, na chave em inglês
+ * @param {string} city nome da cidade
+ * @returns {{lat: number, lon: number}|null} coordenadas, ou null se a cidade não estiver lá
+ */
+export const cityCoord = (country, city) => cities[`${country}|${city}`] || null;
 
 function normalizePartner(row) {
   return {
@@ -100,6 +109,10 @@ export function loadCatalog(source = DEFAULT_SOURCE) {
         const sheet = json.parceiros || json;
         partners = (sheet.data || []).map(normalizePartner);
         labels = indexLabels((json.taxonomia && json.taxonomia.data) || []);
+        cities = {};
+        ((json.cidades && json.cidades.data) || []).forEach((row) => {
+          cities[`${row.pais}|${row.cidade}`] = { lat: Number(row.lat), lon: Number(row.lon) };
+        });
         return partners;
       });
   }

@@ -145,6 +145,15 @@ body.appear {
   display: block;
 }
 
+/*
+ * O `display` de um componente vence o `[hidden]` da folha do navegador, então um
+ * elemento escondido por `el.hidden = true` continuava ocupando espaço. Os blocos
+ * alternam visibilidade por esse atributo, e não por style inline.
+ */
+[hidden] {
+  display: none !important;
+}
+
 header {
   height: var(--nav-height);
 }
