@@ -3,13 +3,14 @@
   padding: 0;
 }
 
+/* picture hero: a heading over a full bleed image */
 .hero {
   position: relative;
   padding: 40px 24px;
   min-height: 300px;
 }
 
-.hero h1 {
+.hero:not(.hero-split) h1 {
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
@@ -33,5 +34,102 @@
 @media (width >= 900px) {
   .hero {
     padding: 40px 32px;
+  }
+}
+
+/* split hero: text on the left, note and calls to action on the right */
+.hero.hero-split {
+  position: static;
+  min-height: 0;
+  border-bottom: 8px solid var(--accent-color);
+  padding: 0;
+  background-color: #0a0a0a;
+  color: #fff;
+}
+
+.hero.hero-split > div {
+  display: grid;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 24px 44px;
+}
+
+.hero.hero-split h1 {
+  margin: 0;
+  color: #fff;
+  font-size: var(--heading-font-size-xxl);
+  text-wrap: balance;
+}
+
+.hero.hero-split .hero-eyebrow {
+  margin: 0 0 10px;
+  color: #d4d4d4;
+  font-size: var(--body-font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero.hero-split .hero-lead {
+  margin: 14px 0 0;
+  max-width: 52ch;
+  color: #e5e5e5;
+  font-size: var(--body-font-size-s);
+}
+
+.hero.hero-split .hero-aside {
+  border-left: 3px solid var(--accent-color);
+  padding-left: 18px;
+  color: #d4d4d4;
+  font-size: var(--body-font-size-xs);
+}
+
+.hero.hero-split .hero-aside p {
+  margin: 0;
+}
+
+.hero.hero-split .hero-aside .button-wrapper {
+  margin: 14px 0 0;
+}
+
+/* the page buttons invert inside the dark hero */
+.hero.hero-split a.button {
+  width: 100%;
+  border-radius: 0;
+}
+
+.hero.hero-split a.button.primary {
+  border-color: #fff;
+  background-color: #fff;
+  color: #0a0a0a;
+}
+
+.hero.hero-split a.button.primary:hover,
+.hero.hero-split a.button.primary:focus-visible {
+  border-color: #e5e5e5;
+  background-color: #e5e5e5;
+  color: #0a0a0a;
+}
+
+.hero.hero-split a.button.secondary {
+  border-color: #fff;
+  background-color: transparent;
+  color: #fff;
+}
+
+.hero.hero-split a.button.secondary:hover,
+.hero.hero-split a.button.secondary:focus-visible {
+  border-color: #fff;
+  background-color: rgb(255 255 255 / 12%);
+  color: #fff;
+}
+
+@media (width >= 900px) {
+  .hero.hero-split > div {
+    grid-template-columns: minmax(0, 1.45fr) minmax(290px, 0.65fr);
+    gap: 54px;
+    align-items: end;
+    padding: 56px 32px 50px;
   }
 }

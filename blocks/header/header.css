@@ -143,6 +143,10 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
 header .nav-brand {
   grid-area: brand;
   flex-basis: 128px;
+
+  /* lets the brand shrink and wrap so the preference controls stay on screen */
+  min-width: 0;
+  overflow-wrap: break-word;
   font-size: var(--heading-font-size-s);
   font-weight: 700;
   line-height: 1;
@@ -269,4 +273,75 @@ header nav .nav-sections ul > li > ul > li {
 /* tools */
 header nav .nav-tools {
   grid-area: tools;
+}
+
+/* reader preferences: language, text size and theme (scripts/prefs.js) */
+header nav .prefs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+header nav .prefs-group {
+  display: flex;
+}
+
+header nav .prefs-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 40px;
+  border: 1px solid var(--border-color);
+  border-radius: 0;
+  padding: 0 10px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-xs);
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+header nav .prefs-button:hover {
+  background-color: var(--light-color);
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+header nav .prefs-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+header nav .prefs-group .prefs-button + .prefs-button {
+  border-left: 0;
+}
+
+header nav a.prefs-lang[aria-current="page"],
+header nav .prefs-theme[aria-pressed="true"] {
+  border-color: var(--text-color);
+  background-color: var(--text-color);
+  color: var(--background-color);
+}
+
+@media (width < 900px) {
+  header nav {
+    gap: 0 12px;
+    padding: 0 16px;
+  }
+
+  header nav .prefs {
+    gap: 4px;
+  }
+
+  header nav .prefs-button {
+    min-width: 34px;
+    height: 34px;
+    padding: 0 7px;
+  }
 }
